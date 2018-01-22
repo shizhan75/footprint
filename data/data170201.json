@@ -1,0 +1,59 @@
+{
+    "cityInfo": [
+
+        { "latLng": [45.80, 126.54], "name": "哈尔滨", "province": "HL", "time": [[2015, 1]] },
+        { "latLng": [44.53, 128.86], "name": "雪乡", "province": "HL", "time": [[2015, 1]] },
+        { "latLng": [42.11, 128.09], "name": "长白山", "province": "JL", "time": [[2015, 1]] },
+        { "latLng": [41.81, 123.43], "name": "沈阳", "province": "LN", "time": [[2015, 1]] },
+        { "latLng": [38.91, 121.61], "name": "大连", "province": "LN", "time": [[2015, 5]] },
+        { "latLng": [40.00, 124.35], "name": "丹东", "province": "LN", "time": [[2017, 1]] },
+
+        { "latLng": [39.90, 116.41], "name": "北京", "province": "BJ", "time": [] },
+        { "latLng": [39.09, 117.20], "name": "天津", "province": "TJ", "time": [[2013, 4], [2014, 5], [2014, 11]] },
+        { "latLng": [39.94, 119.60], "name": "秦皇岛", "province": "HE", "time": [[2014, 6]] },
+        { "latLng": [38.04, 114.52], "name": "石家庄", "province": "HE", "time": [[2016, 11]] },
+        { "latLng": [41.58, 116.02], "name": "丰宁坝上", "province": "HE", "time": [[2014, 10], [2016, 10]] },
+        { "latLng": [39.63, 118.18], "name": "唐山", "province": "HE", "time": [[2016, 12]] },
+        { "latLng": [42.20, 116.49], "name": "多伦", "province": "NM", "time": [[2016, 10]] },
+        { "latLng": [40.08, 113.30], "name": "大同", "province": "SX", "time": [[2014, 7]] },
+        { "latLng": [37.19, 112.18], "name": "平遥", "province": "SX", "time": [[2016, 12]] },
+        { "latLng": [37.87, 112.55], "name": "太原", "province": "SX", "time": [[2017, 1]] },
+
+        { "latLng": [34.34, 108.94], "name": "西安", "province": "SN", "time": [[2014, 7]] },
+        { "latLng": [34.50, 110.07], "name": "华山", "province": "SN", "time": [[2014, 7]] },
+        { "latLng": [38.49, 106.23], "name": "银川", "province": "NX", "time": [[2016, 7]] },
+        { "latLng": [36.06, 103.83], "name": "兰州", "province": "GS", "time": [[2016, 7]] },
+        { "latLng": [38.93, 100.45], "name": "张掖", "province": "GS", "time": [[2016, 7]] },
+        { "latLng": [39.77, 98.29], "name": "嘉峪关", "province": "GS", "time": [[2016, 7]] },
+        { "latLng": [40.14, 94.66], "name": "敦煌", "province": "GS", "time": [[2016, 7]] },
+        { "latLng": [36.62, 101.78], "name": "西宁", "province": "QH", "time": [[2016, 7]] },
+        { "latLng": [36.58, 100.50], "name": "青海湖", "province": "QH", "time": [[2016, 7]] },
+        { "latLng": [36.74, 99.09], "name": "茶卡盐湖", "province": "QH", "time": [[2016, 7]] },
+
+        { "latLng": [36.68, 117.02], "name": "济南", "province": "SD", "time": [[2014, 11]] },
+        { "latLng": [35.58, 116.99], "name": "曲阜", "province": "SD", "time": [[2014, 11]] },
+        { "latLng": [36.25, 117.12], "name": "泰山", "province": "SD", "time": [[2014, 11]] },
+        { "latLng": [31.23, 121.47], "name": "上海", "province": "SH", "time": [] },
+        { "latLng": [31.30, 120.58], "name": "苏州", "province": "JS", "time": [[2005, 8], [2016, 9]] },
+        { "latLng": [31.49, 120.31], "name": "无锡", "province": "JS", "time": [] },
+        { "latLng": [32.19, 119.42], "name": "镇江", "province": "JS", "time": [[2013, 8]] },
+        { "latLng": [32.06, 118.80], "name": "南京", "province": "JS", "time": [[2013, 8], [2016, 9]] },
+        { "latLng": [30.13, 118.17], "name": "黄山", "province": "AH", "time": [[2016, 9]] },
+        { "latLng": [30.27, 120.16], "name": "杭州", "province": "ZJ", "time": [[2009, 7], [2016, 11]] },
+        { "latLng": [24.48, 118.09], "name": "厦门", "province": "FJ", "time": [[2015, 8]] },
+
+        { "latLng": [34.75, 113.62], "name": "郑州", "province": "HA", "time": [[2015, 10], [2016, 11]] },
+        { "latLng": [34.80, 114.31], "name": "开封", "province": "HA", "time": [[2015, 10]] },
+        { "latLng": [36.10, 114.39], "name": "安阳", "province": "HA", "time": [[2016, 11]] },
+        { "latLng": [28.23, 112.94], "name": "长沙", "province": "HN", "time": [[2017, 1]] },
+        { "latLng": [29.36, 113.13], "name": "岳阳", "province": "HN", "time": [[2017, 1]] },
+        { "latLng": [29.12, 110.48], "name": "张家界", "province": "HN", "time": [[2017, 1]] },
+        { "latLng": [27.95, 109.60], "name": "凤凰", "province": "HN", "time": [[2017, 1]] },
+
+        { "latLng": [23.13, 113.26], "name": "广州", "province": "GD", "time": [] },
+        { "latLng": [23.02, 113.12], "name": "佛山", "province": "GD", "time": [] },
+        { "latLng": [24.19, 113.42], "name": "英德", "province": "GD", "time": [[2013, 6]] },
+        { "latLng": [24.81, 113.60], "name": "韶关", "province": "GD", "time": [[2005, 9]] }
+
+    ]
+}

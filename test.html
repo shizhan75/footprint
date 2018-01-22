@@ -1,0 +1,164 @@
+<!DOCTYPE HTML>
+<html lang="en-US">
+<head>
+  <meta charset="UTF-8">
+  <title>Map</title>
+  <link rel="stylesheet" href="css/jquery-jvectormap-2.0.3.css" type="text/css"/>
+  <link href="https://cdn.bootcss.com/Buttons/2.0.0/css/buttons.css" rel="stylesheet">
+  <style type="text/css">
+    body {
+      padding: 0;
+      margin: 0;
+    }
+    #china-map {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+    }
+    .jvectormap-tip {
+      font-family: 'Source Sans Light', 'Apple LiSung Light', 'STHeiti Light', 'SimSun', sans-serif;
+      font-size: 16px;
+      opacity: 0.75;
+      padding: 6px;
+    }
+    #nav {
+      position: fixed;
+      z-index: 1000;
+      top: 10px;
+      left: 50px;
+      margin: 0;
+      padding: 0;
+    }
+  </style>
+</head>
+<body>
+  <div id="china-map"></div>
+  <div id="nav"><button id="btnNav" type="button" class="button button-primary button-pill">Set your footprint</button></div>
+  
+  <script src="js/jquery-3.1.0.min.js"></script>
+  <script src="js/jquery-jvectormap-2.0.3.min.js"></script>
+  <script src="js/jquery-jvectormap-cn-merc.js"></script>
+  <script type="text/javascript">
+    $(function() {
+      $('#btnNav').click(function() {
+        window.location = 'footprint.php';
+        return false;
+      });
+
+      $.getJSON('data/data170201.json', function(data) {
+
+        function getProvinceVisitedCities(data) {
+          var info = {};
+          for (var province in data.provinceInfo) {
+            info[province] = [];
+          }
+
+          data.cityInfo.forEach(function(city, index) {
+            info[city.province].push(index);
+          });
+          return info;
+        }
+
+        function getProvinceVisited(codes, visitedCities) {
+          var visited = {};
+          for (var province in codes) {
+            visited[province] = (visitedCities[codes[province]].length > 0)? 1 : 0;
+          }
+          return visited;
+        }
+
+        function clearMarkers(map, markers) {
+          var obj = {};
+          markers.forEach(function(marker) {
+            obj[marker] = false;
+          });
+          map.setSelectedMarkers(obj);
+        }
+
+        function highlightProvince(map, province, cities) {
+          map.clearSelectedMarkers();
+          map.setSelectedMarkers(cities[province]);
+        }
+
+        var provinceVisitedCities, provinceVisited, map;
+
+        provinceVisitedCities = getProvinceVisitedCities(data);
+        provinceVisited = getProvinceVisited(data.provinceCode, provinceVisitedCities);
+
+        map = new jvm.Map({
+          container: $('#china-map'),
+          map: 'cn_merc',
+          backgroundColor: '#B0C4DE',
+          markers: data.cityInfo,
+
+          series: {
+            regions: [{
+              scale: ['#FFFFFF', '#FF9933'],
+              attribute: 'fill',
+              values: provinceVisited,
+              min: 0,
+              max: 1
+            }]
+          },
+          markerStyle: {
+            initial: {
+              //fill: '#FF7F00',
+              fill: '#33FF00',
+              r: 4
+            },
+            selected: {
+              fill: '#CA0020',
+              r: 4.5
+            },
+            hover: {
+              //cursor: 'default'
+            }
+          },
+          regionStyle: {
+            hover: {
+              //cursor: 'default'
+            }
+          },
+
+          onMarkerTipShow: function(event, label, index) {
+            var content = label.html();
+            var times = data.cityInfo[index]['time'];
+            if (times && times.length > 0) {
+              content += ' - ';
+              first = true;
+              for (time of times) {
+                if (! first) content += ', ';
+                content += time[0];
+                if (time.length >= 2) content += '.' + time[1];
+                if (time.length >= 3) content += '.' + time[2];
+                first = false;
+              }
+            }
+            label.html(content);
+          },
+          onMarkerClick: function(event, code) {
+            // window.location.href = "gallery.html?code=" + code;
+          },
+          onMarkerOver: function(event, code) {
+            var province = data.cityInfo[parseInt(code)].province;
+            highlightProvince(map, province, provinceVisitedCities);
+          },
+
+          onRegionTipShow: function(event, label, code) {
+            label.html(data.provinceInfo[data.provinceCode[code]]);
+          },
+          onRegionClick: function(event, code) {
+            // window.location.href = "gallery.html?code=" + data.provinceName[code];
+          },
+          onRegionOver: function(event, code) {
+            highlightProvince(map, data.provinceCode[code], provinceVisitedCities);
+          },
+          onRegionOut: function(event, code) {
+            clearMarkers(map, provinceVisitedCities[data.provinceCode[code]]);
+          }
+        });
+      });
+    });
+  </script>
+</body>
+</html>
