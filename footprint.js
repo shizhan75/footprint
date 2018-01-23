@@ -12,7 +12,8 @@ function setData(data) {
 
 function search() {
 	var keyword = $('#keyword').val();
-	$.getJSON('api/geocoding.php', {
+	//$.getJSON('api/geocoding.php', {
+	$.getJSON('http://139.59.100.163/geocoding.php', {
 		keyword: keyword
 	}).done(function(data) {
 		if (data.length <= 0) return;
