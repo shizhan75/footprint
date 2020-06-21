@@ -53,7 +53,7 @@
                 <input type="hidden" name="action" value="login">
                 <div class="form-horizontal">
                   <div class="form-group">
-                    <label class="col-lg-6 control-label"><p class="text-nowrap">Hey, choose a beautiful name for yourself~</p></label>
+                    <label class="col-lg-6 control-label"><p class="text-nowrap">来者何人，报上Username</p></label>
                     <div class="col-lg-4 col-xs-9">
                       <input type="text" name="username" id="username" class="form-control" placeholder="User name" required autofocus>
                     </div>
