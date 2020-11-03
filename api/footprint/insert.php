@@ -5,13 +5,14 @@
 	$footprint = $_POST['footprint'];
 	$lat = $_POST['lat'];
 	$lng = $_POST['lng'];
+	$country = $_POST['country'];
 	$province = $_POST['province'];
 	$time = $_POST['time'];
 	$description = $_POST['description'];
-	$sql = "INSERT INTO footprint (user, footprint, province, latitude, longitude, _time, description) VALUES ('$user', '$footprint', '$province', $lat, $lng, '$time', '$description')";
+	$sql = "INSERT INTO footprint (user, footprint, country, province, latitude, longitude, _time, description) VALUES ('$user', '$footprint', '$country', '$province', $lat, $lng, '$time', '$description')";
 	$count = $dbh->exec($sql);
 	if ($count === 1) {
-		$result = array("status"=>"success", "province"=>$province, "footprint"=>$footprint, "time"=>$time, "description"=>$description, "id"=>$dbh->lastInsertId());
+		$result = array("status"=>"success", "country"=>$country, "province"=>$province, "footprint"=>$footprint, "time"=>$time, "description"=>$description, "id"=>$dbh->lastInsertId());
 	} else {
 		$result = array("status"=>"failed");
 	}

@@ -5,7 +5,7 @@
     global $dbh;
     $footprints = array();
 
-    $sql = "SELECT footprint, province, latitude, longitude, _time, description, id FROM footprint WHERE user='$username'";
+    $sql = "SELECT footprint, province, latitude, longitude, _time, description, id, country FROM footprint WHERE user='$username'";
     $sth = $dbh->prepare($sql);
     if ($sth->execute()) {
       while ($row = $sth->fetch()) {
@@ -16,12 +16,14 @@
         $time = $row[4];
         $description = $row[5];
         $id = $row[6];
+        $country = $row[7];
 
         $footprints[] = array(
           "id"=>$id,
           "lat"=>$lat, 
           "lng"=>$lng, 
           "footprint"=>$footprint, 
+          "country"=>$country,
           "province"=>$province, 
           "time"=>$time, 
           "description"=>$description

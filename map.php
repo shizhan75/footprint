@@ -8,15 +8,17 @@
 <html lang="en-US">
 <head>
 	<meta charset="UTF-8">
-	<title>Map</title>
+	<title>Uguisudani - Map</title>
+  <link href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
   <link href="https://cdn.bootcss.com/jvectormap/2.0.3/jquery-jvectormap.min.css" rel="stylesheet">
   <link href="https://cdn.bootcss.com/Buttons/2.0.0/css/buttons.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://unpkg.com/metismenu/dist/metisMenu.min.css">
   <style type="text/css">
     body {
       padding: 0;
       margin: 0;
     }
-    #china-map {
+    #footprint-map {
       position: absolute;
       width: 100%;
       height: 100%;
@@ -27,212 +29,158 @@
       opacity: 0.75;
       padding: 6px;
     }
-    #nav {
+    #btnShowSideMenu {
       position: absolute;
-      z-index: 1000;
-      top: 10px;
-      left: 50px;
+      z-index: 900;
+      top: 8px;
+      left: 8px;
+      width: 32px;
+      height: 32px;
       margin: 0;
       padding: 0;
+    }
+    #footprint-map .jvectormap-zoomin,
+    #footprint-map .jvectormap-zoomout {
+      position: fixed;
+      top: auto;
+      left: auto;
+      right: 16px;
+      width: 16px;
+      height: 16px;
+      background: #ffffff;
+      color: #4c4c4c;
+      font-size: 24px;
+      font-weight: 200;
+      border: 1px solid #cccccc;
+    }
+    #footprint-map .jvectormap-zoomin {
+      bottom: 64px;
+    }
+    #footprint-map .jvectormap-zoomout {
+      bottom: 40px;
+    }
+
+    .sidebar-nav {
+      position: fixed;
+      width: 280px;
+      height: 100vh;
+      background: #ffffff;
+    }
+    .sidebar-nav ul {
+      margin: 0;
+      padding: 0;
+      list-style: none;
+    }
+    .sidebar-nav .metismenu {
+      display: flex;
+      flex-direction: column;
+    }
+    .sidebar-nav .metismenu>li {
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      border-bottom: 1px solid rgba(0, 0, 0, 0.12);
+    }
+    .sidebar-nav .metismenu .metismenu-header {
+      position: relative;
+      display: block;
+      padding: 24px 15px;
+      transition: all .3s ease-out;
+      text-decoration: none;
+      color: #616161;
+      outline-width: 0;
+    }
+    .sidebar-nav .metismenu a {
+      position: relative;
+      display: block;
+      padding: 13px 15px;
+      transition: all .3s ease-out;
+      text-decoration: none;
+      color: #616161;
+      outline-width: 0;
+    }
+    .sidebar-nav .metismenu ul a {
+      padding: 10px 15px 10px 30px;
+    }
+    .sidebar-nav .metismenu ul ul a {
+      padding: 10px 15px 10px 45px;
+    }
+    .sidebar-nav .metismenu a:hover,
+    .sidebar-nav .metismenu a:focus,
+    .sidebar-nav .metismenu a:active {
+      text-decoration: none;
+      color: #f8f9fa;
+      background: #0b7285;
+    }
+    .overlay {
+      position: fixed;
+      width: 100vw;
+      height: 100vh;
+      background: rgba(0, 0, 0, 0.7);
+      z-index: 998;
     }
   </style>
 </head>
 <body>
-	<div id="china-map"></div>
-  <div id="nav"><button id="btnNav" type="button" class="button button-primary button-pill">Set my footprint</button></div>
+	<div id="footprint-map"></div>
+  <button type="button" class="btn btn-default" aria-label="Menu" id="btnShowSideMenu">
+    <span class="glyphicon glyphicon-menu-hamburger" aria-hidden="true"></span>
+  </button>
+  <div class="overlay" style="display: none">
+    <nav class="sidebar-nav">
+      <ul class="metismenu" id="menu1">
+        <li class="metismenu-header">
+        <span class="glyphicon glyphicon-home" aria-hidden="true"></span>&nbsp;&nbsp;Uguisudani
+        </li>
+        <li class="mm-active">
+          <a class="has-arrow" href="#">Maps</a>
+          <ul>
+            <li>
+              <a href="map.php?map=china">China</a>
+              <a href="map.php?map=japan">Japan</a>
+            </li>
+            </ul>
+        </li>
+        <li><a href="footprint.php">Footprint manager</a></li>
+        <li><a href="logout.php">Logout</a></li>
+      </ul>
+    </nav>
+  </div>
   
   <script src="https://cdn.bootcss.com/jquery/3.1.0/jquery.min.js"></script>
-  <script src="js/jquery-jvectormap-2.0.3.min.js"></script>
-  <script src="js/jquery-jvectormap-cn-merc.js"></script>
+  <script src="https://unpkg.com/metismenu"></script>
+  <script src="js/lib/jquery-jvectormap-2.0.3.min.js"></script>
+  <script src="js/lib/map-china.js"></script>
+  <script src="js/lib/map-japan.js"></script>
+  <script src="js/map-plugin.js"></script>
   <script type="text/javascript">
-    var provinceCode = {
-      "CN-54": "XZ", 
-      "CN-62": "GS", 
-      "CN-52": "GZ", 
-      "CN-53": "YN", 
-      "CN-50": "CQ", 
-      "CN-51": "SC", 
-      "CN-31": "SH", 
-      "CN-32": "JS", 
-      "CN-33": "ZJ", 
-      "CN-14": "SX", 
-      "CN-35": "FJ", 
-      "CN-12": "TJ", 
-      "CN-13": "HE", 
-      "CN-11": "BJ", 
-      "CN-34": "AH", 
-      "CN-36": "JX", 
-      "CN-37": "SD", 
-      "CN-41": "HA", 
-      "CN-43": "HN", 
-      "CN-42": "HB", 
-      "CN-45": "GX", 
-      "CN-44": "GD", 
-      "CN-46": "HI", 
-      "CN-65": "XJ", 
-      "CN-64": "NX", 
-      "CN-63": "QH", 
-      "CN-15": "NM", 
-      "CN-61": "SN", 
-      "CN-23": "HL", 
-      "CN-22": "JL", 
-      "CN-21": "LN",
-      "CN-71": 'TW',
-      "CN-81": 'XG',
-      "CN-82": "AM"
-    }, 
-    provinceInfo = {
-      "XZ": "西藏", 
-      "GS": "甘肃", 
-      "GZ": "贵州", 
-      "YN": "云南", 
-      "CQ": "重庆", 
-      "SC": "四川", 
-      "SH": "上海", 
-      "JS": "江苏", 
-      "ZJ": "浙江", 
-      "SX": "山西", 
-      "FJ": "福建", 
-      "TJ": "天津", 
-      "HE": "河北", 
-      "BJ": "北京", 
-      "AH": "安徽", 
-      "JX": "江西", 
-      "SD": "山东", 
-      "HA": "河南", 
-      "HN": "湖南", 
-      "HB": "湖北", 
-      "GX": "广西", 
-      "GD": "广东", 
-      "HI": "海南", 
-      "XJ": "新疆", 
-      "NX": "宁夏", 
-      "QH": "青海", 
-      "NM": "内蒙古", 
-      "SN": "陕西", 
-      "HL": "黑龙江", 
-      "JL": "吉林", 
-      "LN": "辽宁",
-      "TW": "台湾",
-      "XG": "香港",
-      "AM": "澳门"
-    };
-
     $(function() {
-      $('#btnNav').click(function() {
-        window.location = 'footprint.php';
+      $("#menu1").metisMenu({ toggle: false });
+      $('.overlay').click((e) => {
+        if (e.offsetX <= $('.sidebar-nav')[0].offsetWidth) return;
+        $('.overlay').hide();
+        $('#btnShowSideMenu').show();
+      });
+      $('#btnShowSideMenu').click(() => {
+        $('.overlay').show();
+        $('#btnShowSideMenu').hide();
         return false;
       });
 
-      $.getJSON('api/footprint/getmap.php?username=<?php echo $session_username;?>', function(data) {
-
-        console.log(data);
-
-        function getProvinceVisitedCities(data) {
-          var info = {};
-          for (var province in provinceInfo) {
-            info[province] = [];
-          }
-
-          data.cityInfo.forEach(function(city, index) {
-            if (city.province in info) {
-              info[city.province].push(index);
-            }
-          });
-          return info;
-        }
-
-        function getProvinceVisited(codes, visitedCities) {
-          var visited = {};
-          for (var province in codes) {
-            visited[province] = (visitedCities[codes[province]].length > 0)? 1 : 0;
-          }
-          return visited;
-        }
-
-        function clearMarkers(map, markers) {
-          var obj = {};
-          markers.forEach(function(marker) {
-            obj[marker] = false;
-          });
-          map.setSelectedMarkers(obj);
-        }
-
-        function highlightProvince(map, province, cities) {
-          map.clearSelectedMarkers();
-          map.setSelectedMarkers(cities[province]);
-        }
-
-        var provinceVisitedCities, provinceVisited, map;
-
-        provinceVisitedCities = getProvinceVisitedCities(data);
-        provinceVisited = getProvinceVisited(provinceCode, provinceVisitedCities);
-        console.log(provinceVisitedCities);
-
-        map = new jvm.Map({
-          container: $('#china-map'),
-          map: 'cn_merc',
-          backgroundColor: '#B0C4DE',
-          markers: data.cityInfo,
-
-          series: {
-            regions: [{
-              scale: ['#FFFFFF', '#FF9933'],
-              attribute: 'fill',
-              values: provinceVisited,
-              min: 0,
-              max: 1
-            }]
-          },
-          markerStyle: {
-            initial: {
-              fill: '#33FF00',
-              r: 4
-            },
-            selected: {
-              fill: '#CA0020',
-              r: 4
-            }
-          },
-
-          onMarkerTipShow: function(event, label, index) {
-            var name = data.cityInfo[index]['name'],
-                times = data.cityInfo[index]['time'],
-                description = data.cityInfo[index]['description'],
-                content = name;
-
-            if (times !== '') {
-              content += ' - ' + times;
-            }
-            if (description !== '') {
-              content += '<br>' + description;
-            }
-            label.html(content);
-          },
-          onMarkerClick: function(event, code) {
-            // window.location.href = "gallery.html?code=" + code;
-          },
-          onMarkerOver: function(event, code) {
-            var province = data.cityInfo[parseInt(code)].province;
-            if (province in provinceInfo) {
-              highlightProvince(map, province, provinceVisitedCities);
-            } else {
-              map.setSelectedMarkers(code);
-            }
-          },
-
-          onRegionTipShow: function(event, label, code) {
-            label.html(provinceInfo[provinceCode[code]]);
-          },
-          onRegionClick: function(event, code) {
-            // window.location.href = "gallery.html?code=" + data.provinceName[code];
-          },
-          onRegionOver: function(event, code) {
-            highlightProvince(map, provinceCode[code], provinceVisitedCities);
-          },
-          onRegionOut: function(event, code) {
-            clearMarkers(map, provinceVisitedCities[provinceCode[code]]);
-          }
+      let urlSearchParams = new URLSearchParams(window.location.search);
+      let urlUserId = urlSearchParams.get('userId');
+      let userId = urlUserId != null ? urlUserId : '<?php echo $session_username;?>';
+      let countryId = urlSearchParams.get('map');
+      let supportedCountries = new Set(['china', 'japan']);
+      if (!supportedCountries.has(countryId)) {
+        countryId = 'china';
+      }
+      $.getJSON(`api/footprint/getmap.php?username=${userId}`, function(data) {
+        console.log(data); // for debug
+        new window.MapPlugin({
+          container: $('#footprint-map'),
+          countryId: countryId,
+          footprints: data.footprints,
         });
       });
     });

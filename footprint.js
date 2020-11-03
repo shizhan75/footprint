@@ -1,7 +1,33 @@
+function parseCountry(name) {
+	const MAP_COUNTRY = {
+		'china': 'china',
+		'中国': 'china',
+		'japan': 'japan',
+		'日本': 'japan',
+	};
+	name = name.toLowerCase();
+	return MAP_COUNTRY[name];
+}
+
+function onCountryChange(value) {
+	let country = parseCountry(value);
+	$('.div-province').hide();
+	$('.input-province').val('');
+	if (country === 'china') {
+		$('#div-province-china').show();
+	} else if (country === 'japan') {
+		$('#div-province-japan').show();
+	} else {
+		$('#div-province-others').show();
+	}
+}
+
 function setData(data) {
 	$('#footprintname').val($('#keyword').val());
 	$('#fullname').val(data.formatted_address);
-	$('#province').val(data.province);
+	$('#country').val(data.country);
+	onCountryChange(data.country);
+	$('.input-province').val(data.province);
 	$('#latitude').val(data.lat.toFixed(2));
 	$('#longitude').val(data.lng.toFixed(2));
 
@@ -13,7 +39,6 @@ function setData(data) {
 function search() {
 	var keyword = $('#keyword').val();
 	$.getJSON('api/geocoding.php', {
-	//$.getJSON('http://139.59.100.163/geocoding.php', {
 		keyword: keyword
 	}).done(function(data) {
 		if (data.length <= 0) return;
@@ -36,13 +61,14 @@ function search() {
 
 function insertNewData(data) {
 	var tbody = $('#tableData>tbody'),
+			country = data.country,
 			province = data.province,
 			footprint = data.footprint,
 			time = data.time,
 			description = data.description,
 			id = data.id;
 
-	tbody.append('<tr><td>'+province+'<\/td><td>'+footprint+'<\/td><td>'+time+'<\/td><td>'+description+'<\/td><td><button type="button" class="linkDelete btn btn-default btn-xs" aria-label="Delete" id="'+id+'"><span class="glyphicon glyphicon-remove" aria-hidden="true"><\/span><\/button><\/td>');
+	tbody.append('<tr><td>'+country+'<\/td><td>'+province+'<\/td><td>'+footprint+'<\/td><td>'+time+'<\/td><td>'+description+'<\/td><td><button type="button" class="linkDelete btn btn-default btn-xs" aria-label="Delete" id="'+id+'"><span class="glyphicon glyphicon-remove" aria-hidden="true"><\/span><\/button><\/td>');
 }
 
 function submit() {
@@ -51,7 +77,8 @@ function submit() {
 		footprint: $('#footprintname').val(),
 		lat: $('#latitude').val(),
 		lng: $('#longitude').val(),
-		province: $('#province').val(),
+		country: $('#country').val(),
+		province: $('.input-province:visible').val(),
 		time: $('#time').val(),
 		description: $('#description').val()
 	}).done(function(data) {
@@ -79,6 +106,10 @@ $(function() {
 			$('#keyword').blur();
       $('#btnSearch').trigger('click');
     }
+	 });
+	 
+	$('#country').on('change',function(event) {
+		onCountryChange(event.target.value);
  	});
 
 	/*$('#keyword').on('input', function() {
@@ -110,8 +141,6 @@ $(function() {
 	$('#btnAddFootprint').click(function() {
 		$('#divAddFootprint').hide();
 		$('#addFootprint').show();
-
-		$('body,html').animate({scrollTop:0}, 1000);
 		$('#keyword').focus();
     return false;
 	});
