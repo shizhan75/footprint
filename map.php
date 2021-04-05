@@ -9,10 +9,10 @@
 <head>
 	<meta charset="UTF-8">
 	<title>Uguisudani - Map</title>
-  <link href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
-  <link href="https://cdn.bootcss.com/jvectormap/2.0.3/jquery-jvectormap.min.css" rel="stylesheet">
-  <link href="https://cdn.bootcss.com/Buttons/2.0.0/css/buttons.css" rel="stylesheet">
-  <link rel="stylesheet" href="https://unpkg.com/metismenu/dist/metisMenu.min.css">
+  <link href="css/lib/bootstrap-3.3.7.min.css" rel="stylesheet">
+  <link href="css/lib/jquery-jvectormap-2.0.3.min.css" rel="stylesheet">
+  <link href="css/lib/buttons-2.0.0.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="css/lib/metisMenu-3.0.6.min.css">
   <link rel="stylesheet" href="css/sidemenu.css">
   <style type="text/css">
     body {
@@ -55,8 +55,8 @@
 <body>
 	<div id="footprint-map"></div>
   
-  <script src="https://cdn.bootcss.com/jquery/3.1.0/jquery.min.js"></script>
-  <script src="https://unpkg.com/metismenu"></script>
+  <script src="js/lib/jquery-3.1.0.min.js"></script>
+  <script src="js/lib/metisMenu-3.0.6.min.js"></script>
   <script src="js/lib/jquery-jvectormap-2.0.3.min.js"></script>
   <script src="js/lib/map-china.js"></script>
   <script src="js/lib/map-japan.js"></script>

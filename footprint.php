@@ -15,8 +15,8 @@
 
     <title>Uguisudani - Footprint</title>
 
-    <link href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="https://unpkg.com/metismenu/dist/metisMenu.min.css">
+    <link href="css/lib/bootstrap-3.3.7.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="css/lib/metisMenu-3.0.6.min.css">
     <link rel="stylesheet" href="css/sidemenu.css">
     <style type="text/css">
       body {
@@ -265,11 +265,10 @@ HTML;
       </div>
     </div> <!-- /container -->
 
-
-    <script src="https://cdn.bootcss.com/jquery/1.12.4/jquery.min.js"></script>
-    <script src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-    <script src="https://unpkg.com/metismenu"></script>
+    <script src="js/lib/jquery-3.1.0.min.js"></script>
+    <script src="js/lib/bootstrap-3.3.7.min.js"></script>
+    <script src="js/lib/metisMenu-3.0.6.min.js"></script>
     <script src="js/sidemenu.js"></script>
-    <script src="footprint.js"></script>
+    <script src="js/footprint.js"></script>
   </body>
 </html>
