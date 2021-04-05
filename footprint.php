@@ -16,18 +16,17 @@
     <title>Uguisudani - Footprint</title>
 
     <link href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://unpkg.com/metismenu/dist/metisMenu.min.css">
+    <link rel="stylesheet" href="css/sidemenu.css">
     <style type="text/css">
       body {
         padding-top: 20px;
         padding-bottom: 20px;
       }
-      .navbar {
-        margin-bottom: 20px;
-      }
       #dropdown {
         margin-left: 15px;
       }
-      #btnSubmit {
+      #btnGroupActions {
         float: right;
         margin-right: 15px;
       }
@@ -47,35 +46,10 @@
   <body>
 
     <div class="container">
-
-      <!-- Static navbar -->
-      <nav class="navbar navbar-default">
-        <div class="container-fluid">
-          <div class="navbar-header">
-            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
-              <span class="sr-only">Toggle navigation</span>
-              <span class="icon-bar"></span>
-              <span class="icon-bar"></span>
-              <span class="icon-bar"></span>
-            </button>
-            <!-- <a class="navbar-brand" href="#">Beautiful~</a> -->
-          </div>
-          <div id="navbar" class="navbar-collapse collapse">
-            <ul class="nav navbar-nav">
-              <li class="active"><a href="#">Footprint</a></li>
-              <li><a href="map.php?map=china">China Map</a></li>
-              <li><a href="map.php?map=japan">Japan Map</a></li>
-            </ul>
-            <ul class="nav navbar-nav navbar-right">
-              <li><a href="logout.php">Logout</a></li>
-            </ul>
-          </div><!--/.nav-collapse -->
-        </div><!--/.container-fluid -->
-      </nav>
-
       <div class="panel panel-info" id="addFootprint" hidden>
         <div class="panel-body">
           <form role="form">
+            <input type="hidden" id="recordId" value="">
             <input type="hidden" id="username" value="<?php echo $session_username;?>">
             <div class="form-horizontal">
               <div class="row">
@@ -164,18 +138,6 @@
   foreach ($provinces as $province) {
     echo <<< HTML
                             <option value="$province">$province</option>
-                <tr>
-                  <td>$country</td>
-                  <td>$province</td>
-                  <td>$footprint</td>
-                  <td>$time</td>
-                  <td>$description</td>
-                  <td>
-                    <button type="button" class="linkDelete btn btn-default btn-xs" aria-label="Delete" id="$id">
-                      <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
-                    </button>
-                  </td>
-                </tr>
 HTML;
   }
 ?>
@@ -198,18 +160,6 @@ HTML;
   foreach ($provinces as $province) {
     echo <<< HTML
                             <option value="$province">$province</option>
-                <tr>
-                  <td>$country</td>
-                  <td>$province</td>
-                  <td>$footprint</td>
-                  <td>$time</td>
-                  <td>$description</td>
-                  <td>
-                    <button type="button" class="linkDelete btn btn-default btn-xs" aria-label="Delete" id="$id">
-                      <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
-                    </button>
-                  </td>
-                </tr>
 HTML;
   }
 ?>
@@ -238,7 +188,10 @@ HTML;
                   </div>
                 </div> 
                 <div class="row">
-                  <button type="button" class="btn btn-success" id="btnSubmit">Add the footprint</button>
+                  <div id="btnGroupActions">
+                    <button type="button" class="btn btn-success" id="btnSubmit">Add the footprint</button>
+                    <button type="button" class="btn btn-default" id="btnCancel">Cancel</button>
+                  </div>
                 </div>
               </div>
             </div>
@@ -262,7 +215,7 @@ HTML;
               <col width="200px" />
               <col width="250px" />
               <col width="100%" />
-              <col width="50px" />
+              <col width="70px" />
               <thead>
                 <tr>
                   <th>Country</th>
@@ -294,7 +247,10 @@ HTML;
                   <td>$time</td>
                   <td>$description</td>
                   <td>
-                    <button type="button" class="linkDelete btn btn-default btn-xs" aria-label="Delete" id="$id">
+                    <button type="button" class="linkEdit btn btn-default btn-xs" aria-label="Edit" record-id="$id">
+                      <span class="glyphicon glyphicon-edit" aria-hidden="true"></span>
+                    </button>
+                    <button type="button" class="linkDelete btn btn-default btn-xs" aria-label="Delete" record-id="$id">
                       <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
                     </button>
                   </td>
@@ -312,6 +268,8 @@ HTML;
 
     <script src="https://cdn.bootcss.com/jquery/1.12.4/jquery.min.js"></script>
     <script src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script src="https://unpkg.com/metismenu"></script>
+    <script src="js/sidemenu.js"></script>
     <script src="footprint.js"></script>
   </body>
 </html>

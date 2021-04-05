@@ -1,6 +1,10 @@
 <?php
 	include "../../connectdb.php";
 
+	$isUpdate = isset($_POST['id']);
+	if ($isUpdate) {
+		$id = $_POST['id'];
+	}
 	$user = $_POST['username'];
 	$footprint = $_POST['footprint'];
 	$lat = $_POST['lat'];
@@ -9,10 +13,17 @@
 	$province = $_POST['province'];
 	$time = $_POST['time'];
 	$description = $_POST['description'];
-	$sql = "INSERT INTO footprint (user, footprint, country, province, latitude, longitude, _time, description) VALUES ('$user', '$footprint', '$country', '$province', $lat, $lng, '$time', '$description')";
+	if ($isUpdate) {
+		$sql = "UPDATE footprint SET user='$user', footprint='$footprint', country='$country', province='$province', latitude=$lat, longitude=$lng, _time='$time', description='$description' WHERE id='$id'";
+	} else {
+		$sql = "INSERT INTO footprint (user, footprint, country, province, latitude, longitude, _time, description) VALUES ('$user', '$footprint', '$country', '$province', $lat, $lng, '$time', '$description')";
+	}
 	$count = $dbh->exec($sql);
 	if ($count === 1) {
-		$result = array("status"=>"success", "country"=>$country, "province"=>$province, "footprint"=>$footprint, "time"=>$time, "description"=>$description, "id"=>$dbh->lastInsertId());
+		if (!$isUpdate) {
+			$id = $dbh->lastInsertId();
+		}
+		$result = array("status"=>"success", "country"=>$country, "province"=>$province, "footprint"=>$footprint, "time"=>$time, "description"=>$description, "id"=>$id);
 	} else {
 		$result = array("status"=>"failed");
 	}

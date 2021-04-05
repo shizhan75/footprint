@@ -1,0 +1,74 @@
+#sidemenu-wrapper {
+  position: fixed;
+  top: 0;
+  bottom: 0;
+}
+#btnShowSideMenu {
+  position: absolute;
+  z-index: 900;
+  top: 8px;
+  left: 8px;
+  width: 32px;
+  height: 32px;
+  margin: 0;
+  padding: 0;
+}
+.sidebar-nav {
+  position: fixed;
+  width: 280px;
+  height: 100vh;
+  background: #ffffff;
+}
+.sidebar-nav ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.sidebar-nav .metismenu {
+  display: flex;
+  flex-direction: column;
+}
+.sidebar-nav .metismenu>li {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.12);
+}
+.sidebar-nav .metismenu .metismenu-header {
+  position: relative;
+  display: block;
+  padding: 24px 15px;
+  transition: all .3s ease-out;
+  text-decoration: none;
+  color: #616161;
+  outline-width: 0;
+}
+.sidebar-nav .metismenu a {
+  position: relative;
+  display: block;
+  padding: 13px 15px;
+  transition: all .3s ease-out;
+  text-decoration: none;
+  color: #616161;
+  outline-width: 0;
+}
+.sidebar-nav .metismenu ul a {
+  padding: 10px 15px 10px 30px;
+}
+.sidebar-nav .metismenu ul ul a {
+  padding: 10px 15px 10px 45px;
+}
+.sidebar-nav .metismenu a:hover,
+.sidebar-nav .metismenu a:focus,
+.sidebar-nav .metismenu a:active {
+  text-decoration: none;
+  color: #f8f9fa;
+  background: #0b7285;
+}
+.overlay {
+  position: fixed;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.7);
+  z-index: 998;
+}
