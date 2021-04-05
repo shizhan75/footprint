@@ -201,6 +201,9 @@ $(function() {
 			$('#dropdown').hide();
 			$('#detail').show();
 			setForm(data[0]);
+			$('html, body').animate({
+				scrollTop: $("#addFootprint").offset().top
+			}, 1000);
 		});
 		return false;
 	});
